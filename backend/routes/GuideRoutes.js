@@ -22,6 +22,16 @@ function authenticateToken(req, res, next) {
     });    
 }
 
+router.get("/guide",authenticateToken,(req,res)=>{
+    //sending guide details
+    GuideModel.find({username:req.body.username}).then((result)=>{
+        res.status(200).json(result);
+    }).catch((err)=>{
+        console.error(err);
+        return res.sendStatus(500);
+    });
+});
+
 router.get('/travellers',authenticateToken,(req,res)=>{
     //sending travellers details
     var tour_id;
